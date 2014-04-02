@@ -27,19 +27,17 @@ class BaseCommands(object):
             wrapper.__doc__ = function.__doc__
             wrapper.name = function.__name__
             # decorate class with empty attrs for DI
-            inject_attrs = self.get_inject_attributes(function)
+            inject_attrs = self.get_inject_attributes()
             for attr in inject_attrs:
                 setattr(wrapper, attr, None)
             tasks.append(wrapper)
         return tasks
 
-    def get_inject_attributes(self, function):
+    def get_inject_attributes(self):
         """
         Return the list of attributes that can be used as injection for command
         tasks.
         Defaults to all public instance attributes that are set to None.
-
-        :param function: task function being prepared for injection decoration
         """
         return map(
             lambda item: item[0],
@@ -49,6 +47,19 @@ class BaseCommands(object):
 
     def _make_task_wrapper(self, function):
         class TaskWrapper(Task):
+            def __init__(self, klass):
+                super(TaskWrapper, self).__init__()
+                self.klass = klass
+
+            def __setattr__(self, key, value):
+                """
+                Setting the underlying attributes of the
+                wrapped command class.
+                """
+                super(TaskWrapper, self).__setattr__(key, value)
+                if hasattr(self, 'klass'):
+                    setattr(self.klass, key, value)
+
             def run(self, *args, **kwargs):
                 function(*args, **kwargs)
-        return TaskWrapper()
+        return TaskWrapper(self)

@@ -4,6 +4,7 @@
 from fabextras.config import Properties, SystemPaths
 from fabextras.vagrant import VagrantCommands
 from fabextras.deploy import DeployCommands
+from fabextras.testing import TestingCommands
 
 
 def initialize(module_globals, project_dir,
@@ -17,7 +18,8 @@ def initialize(module_globals, project_dir,
     injection_objs = {
         'local_project_paths': SystemPaths(project_dir, project_properties),
         'vagrant_commands': VagrantCommands(),
-        'deploy_commands': DeployCommands()
+        'deploy_commands': DeployCommands(),
+        'testing_commands': TestingCommands()
     }
     project_inject_objs = project_inject_objs or {}
     injection_objs.update(project_inject_objs)
