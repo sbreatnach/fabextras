@@ -1,5 +1,5 @@
 """
-Configuration for Fabric tasks
+Common configuration for all Fabric tasks
 """
 from fabric import api
 import os

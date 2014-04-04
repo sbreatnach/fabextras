@@ -1,10 +1,15 @@
 """
+Usage of this library is triggered by using the initialize() function.
 
+Simple fabfile.py:
+>>> import fabpowertasks
+>>> project_dir = os.path.dirname(__file__)
+>>> fabpowertasks.initialize(globals(), project_dir)
 """
-from fabextras.config import Properties, SystemPaths
-from fabextras.vagrant import VagrantCommands
-from fabextras.deploy import DeployCommands
-from fabextras.testing import TestingCommands
+from fabpowertasks.config import Properties, SystemPaths
+from fabpowertasks.vagrant import VagrantCommands
+from fabpowertasks.deploy import DeployCommands
+from fabpowertasks.testing import TestingCommands
 
 
 def initialize(module_globals, project_dir,

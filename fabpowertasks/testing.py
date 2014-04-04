@@ -1,8 +1,5 @@
-"""
-
-"""
 from fabric.api import local, shell_env
-from fabextras.commands import BaseCommands
+from fabpowertasks.commands import BaseCommands
 
 
 class TestingCommands(BaseCommands):
@@ -15,9 +12,9 @@ class TestingCommands(BaseCommands):
         self.local_project_paths = None
         self._task_functions = [self.pytest]
 
-    def pytest(self):
+    def pytest(self, *paths):
         """
-        Runs the py.test runner
+        Runs the given test paths with py.test
         """
         with shell_env(PYTHONPATH=self.local_project_paths.base_dir):
-            local('py.test')
+            local('py.test %s' % ' '.join(paths))

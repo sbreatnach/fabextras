@@ -1,13 +1,13 @@
-"""
-Tasks for deploying a project
-"""
 from fabtools.vagrant import vagrant_settings
 from fabric.contrib.project import rsync_project
 from fabric import api
-from fabextras.commands import BaseCommands
+from fabpowertasks.commands import BaseCommands
 
 
 class DeployCommands(BaseCommands):
+    """
+    Standard tasks for deploying your project
+    """
 
     def __init__(self):
         super(DeployCommands, self).__init__()

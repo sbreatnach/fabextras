@@ -3,8 +3,8 @@ Vagrant-specific commands
 """
 from fabric import api
 
-from fabextras.commands import BaseCommands
-from fabextras.util import convert_to_cmd_options
+from fabpowertasks.commands import BaseCommands
+from fabpowertasks.util import convert_to_cmd_options
 
 
 class VagrantCommands(BaseCommands):
